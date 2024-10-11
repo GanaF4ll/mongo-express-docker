@@ -5,9 +5,13 @@ services:
       dockerfile: docker/api-gateway/Dockerfile
     container_name: api-gateway
     environment:
-      - name=value
+      - AUTH_API_URL_DEV=${AUTH_API_URL_DEV}
+      - USER_API_URL_DEV=${USER_API_URL_DEV}
+      - TIMER_API_URL_DEV=${TIMER_API_URL_DEV}
     volumes:
       - ./src/api-gateway:/usr/src/api-gateway 
+    ports:
+    - "3000:3000"
 
   user:
     build:
@@ -18,10 +22,15 @@ services:
       - MONGODB_URI=${MONGODB_USER_DB_URI}
       - PORT=${PORT_USER}
       - JWT_KEY=${JWT_KEY}
+      - AUTH_API_URL_DEV=${AUTH_API_URL_DEV}
+      - TIMER_API_URL_DEV=${TIMER_API_URL_DEV}
     volumes:
       - ./src/user-service:/usr/src/user-service 
     depends_on:
       - user-db
+    ports:
+    - "3100:3100"
+
 
   auth:
     build:
@@ -31,8 +40,12 @@ services:
     environment:
       - PORT=${PORT_AUTH}
       - JWT_KEY=${JWT_KEY}
+      - USER_API_URL_DEV=${USER_API_URL_DEV}
+      - TIMER_API_URL_DEV=${TIMER_API_URL_DEV}
     volumes:
       - ./src/auth-service:/usr/src/auth-service 
+    ports:
+    - "3300:3300"
 
   timer:
     build:
@@ -42,10 +55,15 @@ services:
     environment:
       - MONGODB_URI=${MONGODB_TIMER_DB_URI}
       - PORT=${PORT_TIMER}
+      - USER_API_URL_DEV=${USER_API_URL_DEV}
+      - AUTH_API_URL_DEV=${AUTH_API_URL_DEV}
+
     volumes:
       - ./src/timer-service:/usr/src/timer-service  
     depends_on:
       - timer-db
+    ports:
+    - "3200:3200"
 
 
   user-db:
