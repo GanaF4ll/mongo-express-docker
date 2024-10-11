@@ -7,7 +7,7 @@ services:
     environment:
       - name=value
     volumes:
-      - ${PWD}/src/api-gateway:/usr/src/api-gateway 
+      - ./src/api-gateway:/usr/src/api-gateway 
 
   user:
     build:
@@ -19,7 +19,7 @@ services:
       - PORT=${PORT_USER}
       - JWT_KEY=${JWT_KEY}
     volumes:
-      - ${PWD}/src/user-service:/usr/src/user-service 
+      - ./src/user-service:/usr/src/user-service 
     depends_on:
       - user-db
 
@@ -32,7 +32,7 @@ services:
       - PORT=${PORT_AUTH}
       - JWT_KEY=${JWT_KEY}
     volumes:
-      - ${PWD}/src/auth-service:/usr/src/auth-service 
+      - ./src/auth-service:/usr/src/auth-service 
 
   timer:
     build:
