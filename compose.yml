@@ -49,7 +49,9 @@ services:
 
 
   user-db:
-    image: mongo:4.4
+    build:
+      context: .
+      dockerfile: docker/mongodb/Dockerfile    
     container_name: user-db
     environment:
       - MONGO_INITDB_DATABASE=${USER_DB}
@@ -57,7 +59,9 @@ services:
       - "27017:27017"
 
   timer-db:
-    image: mongo:4.4
+    build:
+        context: .
+        dockerfile: docker/mongodb/Dockerfile   
     container_name: timer-db
     environment:
       - MONGO_INITDB_DATABASE=${TIMER_DB}
