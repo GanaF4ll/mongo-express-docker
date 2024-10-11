@@ -32,6 +32,7 @@ services:
     environment:
       - MONGODB_USER_DB_URI=${MONGODB_USER_DB_URI}
       - PORT=${PORT_USER}
+      - JWT_KEY=${JWT_KEY}
     volumes:
       - ./src/user-service:/usr/src/user-service
     depends_on:
@@ -43,7 +44,8 @@ services:
       dockerfile: docker/auth-service/Dockerfile
     container_name: auth
     environment:
-      - name=value
+      - PORT=${PORT_AUTH}
+      - JWT_KEY=${JWT_KEY}
     volumes:
       - ./src/auth-service:/usr/src/auth-service
 
