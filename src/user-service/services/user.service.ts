@@ -38,12 +38,6 @@ export class UserService {
       throw new Error("Incorrect email or password");
     }
 
-    // const payload = { id: existingUser._id, email: existingUser.email };
-
-    // const token = jwt.sign(payload, process.env.JWT_KEY as string, {
-    //   expiresIn: "48h",
-    // });
-
     return existingUser;
   }
 
@@ -67,7 +61,7 @@ export class UserService {
     if (!user) throw new Error(`No user found with the email: ${email}`);
 
     return user;
-}
+  }
 
   async update(id: string, dto: UpdateUserDto): Promise<IUser> {
     const updatedUser = await User.findByIdAndUpdate(id, dto, { new: true });
@@ -82,6 +76,4 @@ export class UserService {
 
     return deletedUser;
   }
-
-  
 }
