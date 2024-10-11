@@ -66,7 +66,7 @@ services:
 
   user-db:
     image: mongo:4.4
-    container_name: mongo
+    container_name: user-db
     environment:
       - MONGO_INITDB_DATABASE=${USER_DB}
     ports:
@@ -74,7 +74,7 @@ services:
 
   timer-db:
     image: mongo:4.4
-    container_name: mongo
+    container_name: timer-db
     environment:
       - MONGO_INITDB_DATABASE=${TIMER_DB}
     ports:
