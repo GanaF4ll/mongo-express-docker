@@ -1,8 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import userRouter from "./routes/user.route";
-import timerRouter from "./routes/timer.route";
+// import userRouter from "./routes/user.route";
+// import timerRouter from "./routes/timer.route";
 
 dotenv.config();
 
@@ -27,12 +27,12 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
-app.use("/users", userRouter);
-app.use("/timers", timerRouter);
+// app.use("/users", userRouter);
+// app.use("/timers", timerRouter);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3201;
 export const server = app.listen(PORT, () => {
   console.log(process.env.MONGODB_URI);
 
-  console.log(`Api-gateway is running on port ${PORT}`);
+  console.log(`Timer-service is running on port ${PORT}`);
 });

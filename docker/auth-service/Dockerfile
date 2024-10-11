@@ -7,5 +7,5 @@ RUN npm install
 
 COPY src/auth-service .
 
-EXPOSE 3000
+EXPOSE 3300
 CMD ["npm", "run", "dev"]

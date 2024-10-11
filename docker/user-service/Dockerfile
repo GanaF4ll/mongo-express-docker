@@ -7,5 +7,5 @@ RUN npm install
 
 COPY src/user-service .
 
-EXPOSE 3000
+EXPOSE 3100
 CMD ["npm", "run", "dev"]
