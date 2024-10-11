@@ -1,6 +1,6 @@
 import { User, IUser } from "../models/user.model";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 import { CreateUserDto, UpdateUserDto, LoginDto } from "../dtos/user.dto";
 import { log } from "console";
 
