@@ -31,6 +31,7 @@ services:
     container_name: user
     environment:
       - MONGODB_USER_DB_URI=${MONGODB_USER_DB_URI}
+      - PORT=${PORT_USER}
     volumes:
       - ./src/user-service:/usr/src/user-service
     depends_on:
