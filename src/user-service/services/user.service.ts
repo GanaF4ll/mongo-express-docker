@@ -29,7 +29,7 @@ export class UserService {
 
   async login(credentials: LoginDto): Promise<IUser> {
     const { email, password } = credentials;
-    const existingUser = await User.findOne({ email });
+    const existingUser = await this.findByEmail(email);
 
     if (
       !existingUser ||
@@ -82,4 +82,6 @@ export class UserService {
 
     return deletedUser;
   }
+
+  
 }
