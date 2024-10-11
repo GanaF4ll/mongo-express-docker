@@ -27,4 +27,8 @@ export class UserController {
   async findById(id: string) {
     return await this.userService.findOne(id);
   }
+
+  async findByEmail(email: string) {
+    return await this.userService.findByEmail(email);
+  }
 }

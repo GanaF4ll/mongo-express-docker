@@ -10,6 +10,8 @@ services:
       - TIMER_API_URL_DEV=${TIMER_API_URL_DEV}
     volumes:
       - ./src/api-gateway:/usr/src/api-gateway 
+    ports:
+    - "3000:3000"
 
   user:
     build:
@@ -26,6 +28,9 @@ services:
       - ./src/user-service:/usr/src/user-service 
     depends_on:
       - user-db
+    ports:
+    - "3100:3100"
+
 
   auth:
     build:
@@ -39,6 +44,8 @@ services:
       - TIMER_API_URL_DEV=${TIMER_API_URL_DEV}
     volumes:
       - ./src/auth-service:/usr/src/auth-service 
+    ports:
+    - "3300:3300"
 
   timer:
     build:
@@ -55,6 +62,8 @@ services:
       - ./src/timer-service:/usr/src/timer-service  
     depends_on:
       - timer-db
+    ports:
+    - "3200:3200"
 
 
   user-db:

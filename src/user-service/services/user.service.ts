@@ -27,7 +27,7 @@ export class UserService {
     return newUser;
   }
 
-  async login(credentials: LoginDto): Promise<string> {
+  async login(credentials: LoginDto): Promise<IUser> {
     const { email, password } = credentials;
     const existingUser = await User.findOne({ email });
 
@@ -38,13 +38,13 @@ export class UserService {
       throw new Error("Incorrect email or password");
     }
 
-    const payload = { id: existingUser._id, email: existingUser.email };
+    // const payload = { id: existingUser._id, email: existingUser.email };
 
-    const token = jwt.sign(payload, process.env.JWT_KEY as string, {
-      expiresIn: "48h",
-    });
+    // const token = jwt.sign(payload, process.env.JWT_KEY as string, {
+    //   expiresIn: "48h",
+    // });
 
-    return token;
+    return existingUser;
   }
 
   async findAll(): Promise<IUser[]> {
@@ -61,6 +61,14 @@ export class UserService {
     return user;
   }
 
+  async findByEmail(email: string): Promise<IUser> {
+    const user = await User.findOne({ email: email });
+  
+    if (!user) throw new Error(`No user found with the email: ${email}`);
+  
+    return user;
+  }
+  
   async update(id: string, dto: UpdateUserDto): Promise<IUser> {
     const updatedUser = await User.findByIdAndUpdate(id, dto, { new: true });
     if (!updatedUser) throw new Error(`No user found with the id: ${id}`);

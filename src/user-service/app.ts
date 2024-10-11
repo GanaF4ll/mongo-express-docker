@@ -27,7 +27,6 @@ mongoose
 
 const PORT = process.env.PORT || 3101;
 export const server = app.listen(PORT, () => {
-  console.log(process.env.MONGODB_URI);
 
   console.log(`User-service is running on port ${PORT}`);
 });

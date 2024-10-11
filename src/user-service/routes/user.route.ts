@@ -71,4 +71,17 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/email", async (req, res) => {
+  const email = req.query.email as string;
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+  try {
+    const user = await userController.findByEmail(email);
+    return res.status(200).json(user);
+  } catch (error: any) {
+    return res.status(404).json({ message: error.message });
+  }
+});
+
 export default router;
