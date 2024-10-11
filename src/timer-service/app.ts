@@ -1,38 +1,23 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-// import userRouter from "./routes/user.route";
-// import timerRouter from "./routes/timer.route";
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const app = express();
+const port = process.env.PORT || 3201;
 
 const uri = process.env.MONGODB_URI as string;
 
-if (!uri) {
-  throw new Error("MONGODB_URI environment variable is not defined");
-}
-
 mongoose
-  .connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
-  .then(() => console.log("MongoDB connected"))
+  .connect(uri)
+  .then(() => console.log("timer-db connected"))
   .catch((err) => console.error(err));
 
-// app.use("/users", userRouter);
-// app.use("/timers", timerRouter);
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 
-const PORT = process.env.PORT || 3201;
-export const server = app.listen(PORT, () => {
-  console.log(process.env.MONGODB_URI);
-
-  console.log(`Timer-service is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`timer-service is running on port ${port}`);
 });

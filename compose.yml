@@ -1,19 +1,4 @@
 services:
-  # api:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/node/Dockerfile
-  #   container_name: node
-  #   environment:
-  #     - MONGODB_URI=${MONGODB_URI}
-  #     - JWT_KEY=${JWT_KEY}
-  #   volumes:
-  #     - ./src/api:/usr/src/app
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - mongo
-
   api-gateway:
     build:
       context: .
@@ -22,7 +7,7 @@ services:
     environment:
       - name=value
     volumes:
-      - ./src/api-gateway/:usr/src/api-gateway
+      - ${PWD}/src/api-gateway:/usr/src/api-gateway 
 
   user:
     build:
@@ -30,11 +15,11 @@ services:
       dockerfile: docker/user-service/Dockerfile
     container_name: user
     environment:
-      - MONGODB_USER_DB_URI=${MONGODB_USER_DB_URI}
+      - MONGODB_URI=${MONGODB_USER_DB_URI}
       - PORT=${PORT_USER}
       - JWT_KEY=${JWT_KEY}
     volumes:
-      - ./src/user-service:/usr/src/user-service
+      - ${PWD}/src/user-service:/usr/src/user-service 
     depends_on:
       - user-db
 
@@ -47,7 +32,7 @@ services:
       - PORT=${PORT_AUTH}
       - JWT_KEY=${JWT_KEY}
     volumes:
-      - ./src/auth-service:/usr/src/auth-service
+      - ${PWD}/src/auth-service:/usr/src/auth-service 
 
   timer:
     build:
@@ -55,18 +40,13 @@ services:
       dockerfile: docker/timer-service/Dockerfile
     container_name: timer
     environment:
-      - MONGODB_USER_DB_URI=${MONGODB_TIMER_DB_URI}
+      - MONGODB_URI=${MONGODB_TIMER_DB_URI}
       - PORT=${PORT_TIMER}
     volumes:
-      - ./src/timer-service:/usr/timer-service
+      - ./src/timer-service:/usr/src/timer-service  
     depends_on:
       - timer-db
 
-  # mongo:
-  #   image: mongo:4.4
-  #   container_name: mongo
-  #   environment:
-  #     - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
 
   user-db:
     image: mongo:4.4
