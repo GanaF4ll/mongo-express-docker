@@ -63,12 +63,12 @@ export class UserService {
 
   async findByEmail(email: string): Promise<IUser> {
     const user = await User.findOne({ email: email });
-  
+
     if (!user) throw new Error(`No user found with the email: ${email}`);
-  
+
     return user;
-  }
-  
+}
+
   async update(id: string, dto: UpdateUserDto): Promise<IUser> {
     const updatedUser = await User.findByIdAndUpdate(id, dto, { new: true });
     if (!updatedUser) throw new Error(`No user found with the id: ${id}`);
